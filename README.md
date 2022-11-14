@@ -23,6 +23,10 @@
 
 ![ansible drawio](https://user-images.githubusercontent.com/106158041/201671556-2631ce7c-1e76-4563-bc52-306ad0000b6d.png)
 
+- The Ansible inventory file defines the hosts and groups of hosts upon which commands, modules, and tasks in a playbook operate.
+
+- Ansible roles allow you to develop reusable automation components by grouping related automation artifacts, like configuration files, templates, tasks, and handlers. Because roles isolate these components, it's easier to reuse them and share them with other people.
+
 
 ## Setup
 
