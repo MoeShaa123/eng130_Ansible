@@ -23,3 +23,34 @@
 
 ![ansible drawio](https://user-images.githubusercontent.com/106158041/201671556-2631ce7c-1e76-4563-bc52-306ad0000b6d.png)
 
+
+## Setup
+
+- SSH into Controller VM
+- Run Update and Upgrade
+- Run `sudo apt-get install software-properties-common`
+- Run `sudo apt-add-repository ppa:ansible/ansible`
+- Run `Sudo apt-get update`
+- Run `sudo apt-get install ansible -y`
+- Install tree `sudo apt-get install tree `
+- cd into `cd /etc/ansible`
+- Enter `sudo ssh vagrant@192.168.56.10` enter then password `vagrant`, you should now be inside the web VM
+- To return back to controller enter `exit`
+- Now we want to ssh into web db from inside the controller VM
+- Enter `sudo ssh vagrant@192.168.56.11` enter then password `vagrant`
+- Now exit to go back to controller VM
+- Enter `cd /etc/ansible` and `sudo nano hosts`
+- In Ex 2 edit the hosts
+```
+[web]
+192.168.33.10 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[db]
+192.168.33.11 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+```
+- Now run `sudo ansible all -m ping` to ensure ping receives pong from both nodes
+- To run command for both nodes from controller `sudo ansible all -a "date"` 
+
+- To copy data from controller to agent nodes `sudo ansible web -m copy -a "src=hosts dest=/home/vagrant"`
+
+
