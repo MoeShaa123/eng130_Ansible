@@ -57,4 +57,6 @@
 
 - To copy data from controller to agent nodes `sudo ansible web -m copy -a "src=hosts dest=/home/vagrant"`
 
+- To run the provision file when starting VM add this to Vagrantfile `controller.vm.provision "shell", path: "provision.sh"`
+
 
