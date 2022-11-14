@@ -38,10 +38,10 @@
 - Run `sudo apt-get install ansible -y`
 - Install tree `sudo apt-get install tree `
 - cd into `cd /etc/ansible`
-- Enter `sudo ssh vagrant@192.168.56.10` enter then password `vagrant`, you should now be inside the web VM
+- Enter `sudo ssh vagrant@192.168.33.10` enter then password `vagrant`, you should now be inside the web VM
 - To return back to controller enter `exit`
 - Now we want to ssh into web db from inside the controller VM
-- Enter `sudo ssh vagrant@192.168.56.11` enter then password `vagrant`
+- Enter `sudo ssh vagrant@192.168.33.11` enter then password `vagrant`
 - Now exit to go back to controller VM
 - Enter `cd /etc/ansible` and `sudo nano hosts`
 - In Ex 2 edit the hosts
