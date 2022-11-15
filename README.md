@@ -59,7 +59,9 @@
 
 - To run the provision file when starting VM add this to Vagrantfile `controller.vm.provision "shell", path: "provision.sh"`
 
-## Creating a Playbook
+## YAML Playbooks
+
+### Installing Nginx
 ```
 # Yaml file start
 ---
@@ -82,6 +84,7 @@
 # we need to ensure a the end of the script the status of nginx is running
 ```
 
+### Installing Nodejs
 ```
 # Yaml file start
 ---
@@ -113,4 +116,63 @@
       state: present
       
 ```
+### Copying the App folder to the Web server
+```
+# Yaml File
+---
+- name: Ansible Copy Directory Example Local to Remote
+  hosts: web
+  tasks:
+    - name: Copying the Directory's contents (sub directories/files)
+      become: true
+      copy:
+        src: /home/vagrant/app
+        dest: /home/vagrant
+        mode: 0644
+```
 
+### Setting up Reverse Proxy 
+```
+        # Set up reverse proxy
+
+  - name: Remove Nginx default file
+    file:
+      path: /etc/nginx/sites-enabled/default
+      state: absent
+
+  - name: Create file reverse_proxy.config with read and write permissions for everyone
+    file:
+      path: /etc/nginx/sites-enabled/reverse_proxy.conf
+      state: touch
+      mode: '666'
+
+  - name: Inject lines into reverse_proxy.config
+    blockinfile:
+      path: /etc/nginx/sites-enabled/reverse_proxy.conf
+      block: |
+        server{
+          listen 80;
+          server_name development.local;
+          location / {
+              proxy_pass http://localhost:3000;
+              proxy_http_version 1.1;
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection 'upgrade';
+              proxy_set_header Host $host;
+              proxy_cache_bypass $http_upgrade;
+          }
+        }
+
+        # Links the new configuration file to NGINX’s sites-enabled using a command.
+
+  - name: link reverse_proxy.config
+    file:
+      src: /etc/nginx/sites-enabled/reverse_proxy.conf
+      dest: /etc/nginx/sites-available/reverse_proxy.conf
+      state: link
+
+  - name: Restart Nginx
+    shell: |
+      sudo systemctl restart nginx
+
+```
