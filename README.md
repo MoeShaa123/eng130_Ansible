@@ -59,4 +59,58 @@
 
 - To run the provision file when starting VM add this to Vagrantfile `controller.vm.provision "shell", path: "provision.sh"`
 
+## Creating a Playbook
+```
+# Yaml file start
+---
+# create a script to configure nginx in our web server
+
+# who is the host - name of the server
+- hosts: web
+
+# gather data
+  gather_facts: yes
+
+# We need admin access
+  become: true
+
+# add the actual instruction
+  tasks:
+  - name: Install/configure Nginx Web server in web-VM
+    apt: pkg=nginx state=present
+
+# we need to ensure a the end of the script the status of nginx is running
+```
+
+```
+# Yaml file start
+---
+# create a script to install node in our web server
+
+# who is the hosts - means name of the server
+- hosts: web
+
+# gather data
+  gather_facts: yes
+# we need admin access
+  become: true
+# add the actual instructions
+  tasks:
+  - name: "Add nodejs apt key"
+    apt_key:
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key 
+      state: present
+# Add nodesource repository
+  - name: "Add nodejs 12.x ppa for apt repo"
+    apt_repository:
+      repo: deb https://deb.nodesource.com/node_12.x bionic main
+      update_cache: yes
+# Install Node.js
+  - name: "Install nodejs"
+    apt:
+      update_cache: yes
+      name: nodejs
+      state: present
+      
+```
 
