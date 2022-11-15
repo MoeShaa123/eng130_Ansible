@@ -176,3 +176,54 @@
       sudo systemctl restart nginx
 
 ```
+### Installing MongoDB and changing conf file
+
+```
+---
+
+# Specifies the host
+- hosts: db
+
+# Get the facts
+  gather_facts: yes
+
+# Give us admin access
+  become: true
+
+  tasks:
+
+# Installs mongodb
+  - name: Install mongodb
+    apt: pkg=mongodb state=present
+
+# Deletes the configuration file as we need to make changes to it
+  - name: Delete mongodb.conf file
+    file:
+      path: /etc/mongodb.conf
+      state: absent
+
+# Create a new file called mongodb.conf with read and write permissions for everyone
+
+  - name: Create new mongodb.conf file with read and write permissions for everyone
+    file:
+      path: /etc/mongodb.conf
+      state: touch
+      mode: '666'
+
+# Fills the file with the information again but with bindIp being 0.0.0.0
+  - name: Inject lines into the newly created mongodb.conf
+    blockinfile:
+      path: /etc/mongodb.conf
+      block: |
+        "storage:
+          dbPath: /var/lib/mongodb
+          journal:
+            enabled: true
+        systemLog:
+          destination: file
+          logAppend: true
+          path: /var/log/mongodb/mongod.log
+        net:
+          port: 27017
+          bindIp: 0.0.0.0"
+```
