@@ -263,9 +263,6 @@
     security_group_id: "sg-0d8ada297f7ff19bf"
     subnet_id: "subnet-0429d69d55dfad9d2"
     ansible_python_interpreter: /usr/bin/python3
-
-
-
  tasks:
    - name: Get instances facts
       ec2_instance_facts:
