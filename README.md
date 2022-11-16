@@ -227,3 +227,24 @@
           port: 27017
           bindIp: 0.0.0.0"
 ```
+## Creating Environment variable
+```
+---
+  # where do we want to install
+- hosts: web
+
+  # get the facts
+  gather_facts: yes
+
+  become: true
+
+  tasks:
+
+  - name: Run app with specified environment variable
+    shell: |
+      cd app/
+      node seeds/seed.js
+      npm start
+    environment:
+      DB_HOST: mongodb://192.168.33.11:27017/posts
+ ```
