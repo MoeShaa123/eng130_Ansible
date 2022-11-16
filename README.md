@@ -267,18 +267,12 @@
 
 
  tasks:
-
-
-
    - name: Get instances facts
       ec2_instance_facts:
         aws_access_key: "{{aws_access_key}}"
         aws_secret_key: "{{aws_secret_key}}"
         region: "{{ region }}"
       register: result
-
-
-
 
     - name: Upload public key to AWS
       ec2_key:
@@ -288,9 +282,7 @@
         aws_access_key: "{{aws_access_key}}"
         aws_secret_key: "{{aws_secret_key}}"
 
-
-
-   - name: Provision instance(s)
+    - name: Provision instance(s)
       ec2:
         aws_access_key: "{{aws_access_key}}"
         aws_secret_key: "{{aws_secret_key}}"
