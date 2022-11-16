@@ -248,3 +248,63 @@
     environment:
       DB_HOST: mongodb://192.168.33.11:27017/posts
  ```
+## Creating an EC2 instance
+```
+---
+- hosts: localhost
+  connection: local
+  gather_facts: True
+  become: True
+  vars:
+    key_name: eng130
+    region: eu-west-1
+    image: ami-00f499a80f4608e1b
+    id: "eng130_yusuf_app_from_ansible"
+    security_group_id: "sg-0d8ada297f7ff19bf"
+    subnet_id: "subnet-0429d69d55dfad9d2"
+    ansible_python_interpreter: /usr/bin/python3
+
+
+
+ tasks:
+
+
+
+   - name: Get instances facts
+      ec2_instance_facts:
+        aws_access_key: "{{aws_access_key}}"
+        aws_secret_key: "{{aws_secret_key}}"
+        region: "{{ region }}"
+      register: result
+
+
+
+
+    - name: Upload public key to AWS
+      ec2_key:
+        name: "{{ key_name }}"
+        key_material: "{{ lookup('file', '~/.ssh/{{ key_name }}.pub') }}"
+        region: "{{ region }}"
+        aws_access_key: "{{aws_access_key}}"
+        aws_secret_key: "{{aws_secret_key}}"
+
+
+
+   - name: Provision instance(s)
+      ec2:
+        aws_access_key: "{{aws_access_key}}"
+        aws_secret_key: "{{aws_secret_key}}"
+        assign_public_ip: true
+        key_name: "{{ key_name }}"
+        id: "{{ id }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        group_id: "{{ security_group_id }}"
+        image: "{{ image }}"
+        instance_type: t2.micro
+        region: "{{ region }}"
+        wait: true
+        count: 1
+        instance_tags:
+          Name: eng130_yusuf_node_app_from_ansible
+          
+```          
