@@ -1,6 +1,6 @@
 ## Terraform
 
-Terraform is an open-source infrastructure as code software tool that enables you to safely and predictably create, change, and improve infrastructure.
+Terraform is an open-source infrastructure as code software tool owned by HashiCorp that enables you to safely and predictably create, change, and improve infrastructure.
 Terraform is an IAC tool, used primarily by DevOps teams to automate various infrastructure tasks. 
 
 One of the main functions of Terraform is for public cloud provisioning on one of the major providers. Providing an IaC for services such as AWS and Azure has -- and will continue to be -- the main focus of Terraform.
