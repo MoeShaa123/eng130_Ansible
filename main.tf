@@ -99,6 +99,7 @@ resource "aws_instance" "app_instance" {
   key_name = "eng130"
   instance_type               = "t2.micro"
   associate_public_ip_address = true
+  vpc_security_group_ids = [aws_security_group.allow_web.id]
   subnet_id =  aws_subnet.subnet-1.id
   tags = {
     Name = "eng130-yusuf-terraform-app"
