@@ -12,36 +12,7 @@ Terraform is used to facilitate multi-cloud deployments. One of the main draws o
 - Disaster Recovery. With IaC you can actually recover from disasters more rapidly. Because manually constructed infrastructure needs to be manually rebuilt. But with IaC, you can usually just re-run scripts and have the exact same software provisioned again.
 - Enhanced Security. IaC relies on automation that removes many security risks associated with human error. When an IaC-based solution is installed correctly, the overall security of your computing architecture and associated data improves massively.
 
-```
-# write a script to launch resources on the cloud
 
-# create ec2 instance on AWS
 
-# download dependencies from AWS
 
-provider "aws" {
-
-  # which part of AWS we would like to launch resouces in
-  region = "eu-west-1"
-}
-
-resource "aws_instance" "app_instance" {
-  ami                         = "ami-0b47105e3d7fc023e"
-  instance_type               = "t2.micro"
-  associate_public_ip_address = true
-  tags = {
-    Name = "eng130-yusuf-terraform-app"
-  }
-}
-# what type of server with what sort of function
-
-# add resource
-
-# ami
-
-# instance type
-
-# do we need public ip or not
-
-# name the server
-```
+![terraform drawio](https://user-images.githubusercontent.com/106158041/202479754-f4187b71-ed96-43cf-8ec8-53f12d8451e8.png)
