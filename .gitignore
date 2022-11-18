@@ -3,3 +3,4 @@ variable.tf
 .terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.backup
+eng99_IaC_ansible/.vagrant
