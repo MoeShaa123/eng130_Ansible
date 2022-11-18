@@ -16,3 +16,6 @@ Terraform is used to facilitate multi-cloud deployments. One of the main draws o
 
 
 ![terraform drawio](https://user-images.githubusercontent.com/106158041/202479754-f4187b71-ed96-43cf-8ec8-53f12d8451e8.png)
+
+
+![iac drawio](https://user-images.githubusercontent.com/106158041/202726818-1c3b1771-aec7-4c3a-8dd8-36a56cc9d923.png)
